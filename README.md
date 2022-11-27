@@ -6,6 +6,22 @@ If you have no idea how to operate with firebase, or you don't wanna waste time 
 - Firebase credentials 
 - Node 16 or higher
 
+## ⌨ Imports
+Single imports
+```javascript
+const { createCollection } = require('easy-firebase-functions')
+import { createCollection, deleteCollection } from 'easy-firebase-functions'
+```
+Or multiple imports
+```javascript
+const { createCollection, deleteCollection } = require('easy-firebase-functions')
+```
+Or ES6
+```javascript
+import createCollection from 'easy-firebase-functions'
+import { createCollection, deleteCollection } from 'easy-firebase-functions'
+```
+
 ## 📀 Functions
 
 ```bash
