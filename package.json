@@ -1,13 +1,13 @@
 {
-  "name": "aconcagua-backend",
-  "version": "1.0.1",
-  "description": "Earn time with this powerful, scalable and easy to config boilerplate.",
+  "name": "easy-firebase",
+  "version": "1.0.0",
+  "description": "If you have no idea how to operate with firebase, or you don't wanna waste time writting basic operations in your project, this is your ideal package!",
   "author": "gabodmc",
   "license": "MIT",
-  "homepage": "https://github.com/gabodmc/nodejs-boilerplate#readme",
+  "homepage": "https://github.com/gabodmc/easy-firebase#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gabodmc/nodejs-boilerplate"
+    "url": "https://github.com/gabodmc/easy-firebase"
   },
   "scripts": {
     "lint:js": "eslint . --ext .js",
