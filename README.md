@@ -6,6 +6,12 @@ If you have no idea how to operate with firebase, or you don't wanna waste time 
 - Firebase credentials 
 - Node 16 or higher
 
+
+## Install
+```bash
+npm i firebase-easy-functions
+```
+## First of all:
 Create a "credentials.json" file in the root of the project and fill with your firebase credentials"
 Example: 
 ```json
