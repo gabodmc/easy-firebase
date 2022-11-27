@@ -3,7 +3,7 @@ const admin = require('firebase-admin')
 const path = require('path')
 const { ErrorObject, undefinedValidator } = require('./functions')
 
-const credentialsRoute = path.join(__dirname, 'credentials.json')
+const credentialsRoute = path.join(__dirname, '../../credentials.json')
 
 admin.initializeApp(credentialsRoute)
 const db = admin.firestore()
