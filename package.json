@@ -1,6 +1,6 @@
 {
   "name": "firebase-easy-functions",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "If you have no idea how to operate with firebase, or you don't wanna waste time writting basic operations in your project, this is your ideal package!",
   "author": "gabodmc",
   "license": "MIT",

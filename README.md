@@ -23,7 +23,6 @@ Example:
 Single imports
 ```javascript
 const { createCollection } = require('easy-firebase-functions')
-import { createCollection, deleteCollection } from 'easy-firebase-functions'
 ```
 Or multiple imports
 ```javascript
