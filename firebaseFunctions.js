@@ -14,23 +14,10 @@ exports.createCollection = async (collectionName) => {
 }
 
 
-
-exports.createDocument = async (collectionName, documentId, object) => {
+exports.createDocument = async (collectionName, documentId, object = '' ) => {
   if (
     undefinedValidator('collectionName', collectionName)
     && undefinedValidator('documentId', documentId)
-    && undefinedValidator('object', object)
-  ) {
-    const response = await db.collection(collectionName).doc(documentId).set(object)
-    return response
-  }
-}
-
-exports.createDocument = async (collectionName, documentId, object) => {
-  if (
-    undefinedValidator('collectionName', collectionName)
-    && undefinedValidator('documentId', documentId)
-    && undefinedValidator('object', object)
   ) {
     const response = await db.collection(collectionName).doc(documentId).set(object)
     return response
