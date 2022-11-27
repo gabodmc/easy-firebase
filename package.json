@@ -1,0 +1,30 @@
+{
+  "name": "aconcagua-backend",
+  "version": "1.0.1",
+  "description": "Earn time with this powerful, scalable and easy to config boilerplate.",
+  "author": "gabodmc",
+  "license": "MIT",
+  "homepage": "https://github.com/gabodmc/nodejs-boilerplate#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gabodmc/nodejs-boilerplate"
+  },
+  "scripts": {
+    "lint:js": "eslint . --ext .js",
+    "lint:js:fix": "npm run lint:js -- --fix"
+  },
+  "engines": {
+    "node": ">=0.16"
+  },
+  "dependencies": {
+    "firebase-admin": "^11.2.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "eslint": "7.32",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "lint-staged": "11.1.1",
+    "prettier": "2.3.2"
+  }
+}
