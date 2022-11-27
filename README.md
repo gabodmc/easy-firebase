@@ -6,6 +6,19 @@ If you have no idea how to operate with firebase, or you don't wanna waste time 
 - Firebase credentials 
 - Node 16 or higher
 
+Create a "credentials.json" file in the root of the project and put your firebase credentials"
+Example: 
+```json
+{
+    "apiKey": "",
+    "authDomain": "",
+    "projectId": "",
+    "storageBucket": "",
+    "messagingSenderId": "",
+    "appId": ""
+  }
+```
+  
 ## ⌨ Imports
 Single imports
 ```javascript
