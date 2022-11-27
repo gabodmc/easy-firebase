@@ -3,7 +3,8 @@ const admin = require('firebase-admin')
 const path = require('path')
 const { ErrorObject, undefinedValidator } = require('./functions')
 
-const credentialsRoute = path.join(__dirname, '../../credentials.json')
+// eslint-disable-next-line import/no-dynamic-require
+const credentialsRoute = require(`${path.join(__dirname, '../../credentials.json')}`)
 
 admin.initializeApp(credentialsRoute)
 const db = admin.firestore()
@@ -13,8 +14,7 @@ exports.createCollection = async (collectionName) => {
   return `Collection ${collectionName} created successfully`
 }
 
-
-exports.createDocument = async (collectionName, documentId, object = '' ) => {
+exports.createDocument = async (collectionName, documentId, object = '') => {
   if (
     undefinedValidator('collectionName', collectionName)
     && undefinedValidator('documentId', documentId)
@@ -32,7 +32,6 @@ exports.deleteDocument = async (collectionName, documentId) => {
     const response = await db.collection(collectionName).doc(documentId).delete()
     return response
   }
-
 }
 
 exports.findAllDocuments = async (collectionName) => {
@@ -82,11 +81,8 @@ exports.findAllCollections = async () => {
   return results
 }
 
-
 exports.deleteCollection = async (collectionName) => {
-  if (
-    undefinedValidator('collectionName', collectionName)
-  ) {
+  if (undefinedValidator('collectionName', collectionName)) {
     const batchSize = await this.firebaseGetCollectionLength(collectionName)
     const deletePromise = db
       .collection(collectionName)
@@ -109,10 +105,9 @@ exports.deleteCollection = async (collectionName) => {
       })
       .then((batchStatus) => (batchStatus ? true : deleteCollection(collectionPath, batchSize, debug)))
       .catch((error) => {
-        throw new ErrorObject(`Error clearing collection`, 500, error)
+        throw new ErrorObject('Error clearing collection', 500, error)
       })
 
     return deletePromise
   }
-
 }
