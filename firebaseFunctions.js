@@ -13,6 +13,8 @@ exports.createCollection = async (collectionName) => {
   return `Collection ${collectionName} created successfully`
 }
 
+
+
 exports.createDocument = async (collectionName, documentId, object) => {
   if (
     undefinedValidator('collectionName', collectionName)
@@ -22,6 +24,28 @@ exports.createDocument = async (collectionName, documentId, object) => {
     const response = await db.collection(collectionName).doc(documentId).set(object)
     return response
   }
+}
+
+exports.createDocument = async (collectionName, documentId, object) => {
+  if (
+    undefinedValidator('collectionName', collectionName)
+    && undefinedValidator('documentId', documentId)
+    && undefinedValidator('object', object)
+  ) {
+    const response = await db.collection(collectionName).doc(documentId).set(object)
+    return response
+  }
+}
+
+exports.deleteDocument = async (collectionName, documentId) => {
+  if (
+    undefinedValidator('collectionName', collectionName)
+    && undefinedValidator('documentId', documentId)
+  ) {
+    const response = await db.collection(collectionName).doc(documentId).delete()
+    return response
+  }
+
 }
 
 exports.findAllDocuments = async (collectionName) => {
@@ -69,4 +93,39 @@ exports.findAllCollections = async () => {
     })
   })
   return results
+}
+
+
+exports.deleteCollection = async (collectionName) => {
+  if (
+    undefinedValidator('collectionName', collectionName)
+  ) {
+    const batchSize = await this.firebaseGetCollectionLength(collectionName)
+    const deletePromise = db
+      .collection(collectionName)
+      .listDocuments()
+      .then((docs) => {
+        const batch = db.batch()
+
+        if (docs.length <= batchSize) {
+          docs.forEach((doc) => {
+            batch.delete(doc)
+          })
+          batch.commit()
+          return true
+        }
+        for (let i = 0; i < batchSize; i++) {
+          batch.delete(docs[i])
+        }
+        batch.commit()
+        return false
+      })
+      .then((batchStatus) => (batchStatus ? true : deleteCollection(collectionPath, batchSize, debug)))
+      .catch((error) => {
+        throw new ErrorObject(`Error clearing collection`, 500, error)
+      })
+
+    return deletePromise
+  }
+
 }
