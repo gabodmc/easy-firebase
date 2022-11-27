@@ -6,7 +6,7 @@ If you have no idea how to operate with firebase, or you don't wanna waste time 
 - Firebase credentials 
 - Node 16 or higher
 
-Create a "credentials.json" file in the root of the project and put your firebase credentials"
+Create a "credentials.json" file in the root of the project and fill with your firebase credentials"
 Example: 
 ```json
 {
@@ -18,6 +18,9 @@ Example:
     "appId": ""
   }
 ```
+
+![Captura desde 2022-11-27 18-49-25](https://user-images.githubusercontent.com/79473217/204161589-4e41be22-272d-475b-9a4e-ecbef173fe15.png)
+
   
 ## ⌨ Imports
 Single imports
