@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 const admin = require('firebase-admin')
 const path = require('path')
-const { ErrorObject, undefinedValidator } = require('./functions')
+const { ErrorObject, undefinedValidator } = require('./helpers')
 
 // eslint-disable-next-line import/no-dynamic-require
 const credentialsRoute = require(`${path.join(__dirname, '../../credentials.json')}`)
@@ -113,9 +113,14 @@ exports.deleteCollection = async (collectionName) => {
 }
 
 exports.findById = async (collectionName, documentId) => {
-  const response = await db.collection(collectionName).doc(documentId).get()
-  if (response._fieldsProto) {
-    return response._fieldsProto
+  if (
+    undefinedValidator('collectionName', collectionName)
+    && undefinedValidator('documentId', documentId)
+  ) {
+    const response = await db.collection(collectionName).doc(documentId).get()
+    if (response._fieldsProto) {
+      return response._fieldsProto
+    }
+    throw new ErrorObject('Not found', 404)
   }
-  throw new ErrorObject('Not found', 404)
 }
