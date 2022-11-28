@@ -111,3 +111,11 @@ exports.deleteCollection = async (collectionName) => {
     return deletePromise
   }
 }
+
+exports.findById = async (collectionName, documentId) => {
+  const response = await db.collection(collectionName).doc(documentId).get()
+  if (response._fieldsProto) {
+    return response._fieldsProto
+  }
+  throw new ErrorObject('Not found', 404)
+}
