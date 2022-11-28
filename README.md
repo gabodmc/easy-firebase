@@ -54,55 +54,55 @@ import { createCollection, deleteCollection } from 'firebase-easy-functions'
 
 ## 📀 Functions
 
-```bash
+```javascript
 createCollection(collectionName)
 ```
 
 collectionName will be the name of the new Collection. The function will return successfull message.
 
-```bash
+```javascript
 deleteCollection(collectionName)
 ```
 
 collectionName will be the name of the new Collection.
 The function will delete all the data in the collection and return true (bool)
 
-```bash
+```javascript
 createDocument(collectionName, documentId, object)
 ```
 
 collectionName will be the name of the new Collection. documentId will be the "id" of your documment. object (optional) will be the data of your documment.
 The function will return the create firestore payload (\_writtedocument, etc).
 
-```bash
+```javascript
 deleteDocument(collectionName, documentId)
 ```
 
 collectionName will be the name of the new Collection. documentId will be the "id" of your documment.
 The function will return the delete firestore payload (\_writtedocument, etc).
 
-```bash
+```javascript
 findAllDocuments(collectionName)
 ```
 
 collectionName will be the name of the new Collection.
 The function will return all the documents in the collection.
 
-```bash
+```javascript
 collectionLength(collectionName)
 ```
 
 collectionName will be the name of the new Collection.
 The function will return the length (in numbers) of the collection
 
-```bash
+```javascript
 getByPosition(collectionName, position)
 ```
 
 collectionName will be the name of the new Collection, and position will be the specific position of a document you want
 The function will return the data that document.
 
-```bash
+```javascript
 findAllCollections()
 ```
 
