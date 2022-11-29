@@ -1,126 +1,218 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 /* eslint-disable consistent-return */
-const admin = require('firebase-admin')
-const path = require('path')
-const { ErrorObject, undefinedValidator } = require('./helpers')
-
+var admin = require('firebase-admin');
+var path = require('path');
+var _a = require('./helpers'), ErrorObject = _a.ErrorObject, undefinedValidator = _a.undefinedValidator;
 // eslint-disable-next-line import/no-dynamic-require
-const credentialsRoute = require(`${path.join(__dirname, '../../credentials.json')}`)
-
-admin.initializeApp(credentialsRoute)
-const db = admin.firestore()
-
-exports.createCollection = async (collectionName) => {
-  if (undefinedValidator('collectionName', collectionName)) await db.collection(collectionName).doc(collectionName).set({ create: 'ok' })
-  return `Collection ${collectionName} created successfully`
-}
-
-exports.createDocument = async (collectionName, documentId, object = '') => {
-  if (
-    undefinedValidator('collectionName', collectionName)
-    && undefinedValidator('documentId', documentId)
-  ) {
-    const response = await db.collection(collectionName).doc(documentId).set(object)
-    return response
-  }
-}
-
-exports.deleteDocument = async (collectionName, documentId) => {
-  if (
-    undefinedValidator('collectionName', collectionName)
-    && undefinedValidator('documentId', documentId)
-  ) {
-    const response = await db.collection(collectionName).doc(documentId).delete()
-    return response
-  }
-}
-
-exports.findAllDocuments = async (collectionName) => {
-  if (undefinedValidator('collectionName', collectionName)) {
-    const response = await db.collection(collectionName).get()
-    const documents = []
-    response.forEach((doc) => {
-      documents(doc)
-    })
-    return documents
-  }
-}
-
-exports.collectionLength = async (collectionName) => {
-  if (undefinedValidator('collectionName', collectionName)) {
-    const response = await db.collection(collectionName).get()
-    if (response.size !== undefined) {
-      return response.size
-    }
-    throw new ErrorObject(`The collection ${collectionName} doesn't exist`, 400)
-  }
-}
-
-exports.getByPosition = async (collectionName, position) => {
-  if (
-    undefinedValidator('collectionName', collectionName)
-    && undefinedValidator('position', position)
-  ) {
-    let documment
-    const response = await db.collection(collectionName).limit(position).get()
-    response.forEach((doc) => {
-      documment = {
-        doc,
-      }
-    })
-    return documment
-  }
-}
-
-exports.findAllCollections = async () => {
-  const results = []
-  await db.listCollections().then((snapshot) => {
-    snapshot.forEach((snaps) => {
-      results.push(snaps._queryOptions.collectionId)
-    })
-  })
-  return results
-}
-
-exports.deleteCollection = async (collectionName) => {
-  if (undefinedValidator('collectionName', collectionName)) {
-    const batchSize = await this.firebaseGetCollectionLength(collectionName)
-    const deletePromise = db
-      .collection(collectionName)
-      .listDocuments()
-      .then((docs) => {
-        const batch = db.batch()
-
-        if (docs.length <= batchSize) {
-          docs.forEach((doc) => {
-            batch.delete(doc)
-          })
-          batch.commit()
-          return true
+var credentialsRoute = require("".concat(path.join(__dirname, '../../credentials.json')));
+admin.initializeApp(credentialsRoute);
+var db = admin.firestore();
+exports.createCollection = function (collectionName) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (!undefinedValidator('collectionName', collectionName)) return [3 /*break*/, 2];
+                return [4 /*yield*/, db.collection(collectionName).doc(collectionName).set({ create: 'ok' })];
+            case 1:
+                _a.sent();
+                _a.label = 2;
+            case 2: return [2 /*return*/, "Collection ".concat(collectionName, " created successfully")];
         }
-        for (let i = 0; i < batchSize; i++) {
-          batch.delete(docs[i])
+    });
+}); };
+exports.createDocument = function (collectionName, documentId, object) {
+    if (object === void 0) { object = ''; }
+    return __awaiter(void 0, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    if (!(undefinedValidator('collectionName', collectionName)
+                        && undefinedValidator('documentId', documentId))) return [3 /*break*/, 2];
+                    return [4 /*yield*/, db.collection(collectionName).doc(documentId).set(object)];
+                case 1:
+                    response = _a.sent();
+                    return [2 /*return*/, response];
+                case 2: return [2 /*return*/];
+            }
+        });
+    });
+};
+exports.deleteDocument = function (collectionName, documentId) { return __awaiter(void 0, void 0, void 0, function () {
+    var response;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (!(undefinedValidator('collectionName', collectionName)
+                    && undefinedValidator('documentId', documentId))) return [3 /*break*/, 2];
+                return [4 /*yield*/, db.collection(collectionName).doc(documentId).delete()];
+            case 1:
+                response = _a.sent();
+                return [2 /*return*/, response];
+            case 2: return [2 /*return*/];
         }
-        batch.commit()
-        return false
-      })
-      .then((batchStatus) => (batchStatus ? true : deleteCollection(collectionPath, batchSize, debug)))
-      .catch((error) => {
-        throw new ErrorObject('Error clearing collection', 500, error)
-      })
-
-    return deletePromise
-  }
-}
-
-exports.findById = async (collectionName, documentId) => {
-  if (
-    undefinedValidator('collectionName', collectionName)
-    && undefinedValidator('documentId', documentId)
-  ) {
-    const response = await db.collection(collectionName).doc(documentId).get()
-    if (response._fieldsProto) {
-      return response._fieldsProto
-    }
-    throw new ErrorObject('Not found', 404)
-  }
-}
+    });
+}); };
+exports.findAllDocuments = function (collectionName) { return __awaiter(void 0, void 0, void 0, function () {
+    var response, documents_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (!undefinedValidator('collectionName', collectionName)) return [3 /*break*/, 2];
+                return [4 /*yield*/, db.collection(collectionName).get()];
+            case 1:
+                response = _a.sent();
+                documents_1 = [];
+                response.forEach(function (doc) {
+                    documents_1.push(doc);
+                });
+                return [2 /*return*/, documents_1];
+            case 2: return [2 /*return*/];
+        }
+    });
+}); };
+exports.collectionLength = function (collectionName) { return __awaiter(void 0, void 0, void 0, function () {
+    var response;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (!undefinedValidator('collectionName', collectionName)) return [3 /*break*/, 2];
+                return [4 /*yield*/, db.collection(collectionName).get()];
+            case 1:
+                response = _a.sent();
+                if (response.size !== undefined) {
+                    return [2 /*return*/, response.size];
+                }
+                throw new ErrorObject("The collection ".concat(collectionName, " doesn't exist"), 400);
+            case 2: return [2 /*return*/];
+        }
+    });
+}); };
+exports.getByPosition = function (collectionName, position) { return __awaiter(void 0, void 0, void 0, function () {
+    var documment_1, response;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (!(undefinedValidator('collectionName', collectionName)
+                    && undefinedValidator('position', position))) return [3 /*break*/, 2];
+                return [4 /*yield*/, db.collection(collectionName).limit(position).get()];
+            case 1:
+                response = _a.sent();
+                response.forEach(function (doc) {
+                    documment_1 = {
+                        doc: doc,
+                    };
+                });
+                return [2 /*return*/, documment_1];
+            case 2: return [2 /*return*/];
+        }
+    });
+}); };
+exports.findAllCollections = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var results;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                results = [];
+                return [4 /*yield*/, db.listCollections().then(function (snapshot) {
+                        snapshot.forEach(function (snaps) {
+                            results.push(snaps._queryOptions.collectionId);
+                        });
+                    })];
+            case 1:
+                _a.sent();
+                return [2 /*return*/, results];
+        }
+    });
+}); };
+exports.deleteCollection = function (collectionName) { return __awaiter(void 0, void 0, void 0, function () {
+    var batchSize_1, deletePromise;
+    var _this = this;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (!undefinedValidator('collectionName', collectionName)) return [3 /*break*/, 2];
+                return [4 /*yield*/, this.firebaseGetCollectionLength(collectionName)];
+            case 1:
+                batchSize_1 = _a.sent();
+                deletePromise = db
+                    .collection(collectionName)
+                    .listDocuments()
+                    .then(function (docs) {
+                    var batch = db.batch();
+                    if (docs.length <= batchSize_1) {
+                        docs.forEach(function (doc) {
+                            batch.delete(doc);
+                        });
+                        batch.commit();
+                        return true;
+                    }
+                    for (var i = 0; i < batchSize_1; i++) {
+                        batch.delete(docs[i]);
+                    }
+                    batch.commit();
+                    return false;
+                })
+                    .then(function (batchStatus) { return (batchStatus ? true : _this.deleteCollection(batchSize_1)); })
+                    .catch(function (error) {
+                    throw new ErrorObject('Error clearing collection', 500, error);
+                });
+                return [2 /*return*/, deletePromise];
+            case 2: return [2 /*return*/];
+        }
+    });
+}); };
+exports.findById = function (collectionName, documentId) { return __awaiter(void 0, void 0, void 0, function () {
+    var response;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (!(undefinedValidator('collectionName', collectionName)
+                    && undefinedValidator('documentId', documentId))) return [3 /*break*/, 2];
+                return [4 /*yield*/, db.collection(collectionName).doc(documentId).get()];
+            case 1:
+                response = _a.sent();
+                if (response._fieldsProto) {
+                    return [2 /*return*/, response._fieldsProto];
+                }
+                throw new ErrorObject('Not found', 404);
+            case 2: return [2 /*return*/];
+        }
+    });
+}); };
