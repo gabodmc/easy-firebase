@@ -1,6 +1,0 @@
-.eslintignore
-.eslintrc.js
-.gitignore
-package-lock.json
-tsconfig.json
-index.ts
