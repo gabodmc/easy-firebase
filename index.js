@@ -118,9 +118,6 @@ exports.findById = async (collectionName, documentId) => {
     && undefinedValidator('documentId', documentId)
   ) {
     const response = await db.collection(collectionName).doc(documentId).get()
-    if (response._fieldsProto) {
-      return response._fieldsProto
-    }
-    throw new ErrorObject('Not found', 404)
+    return response.data()
   }
 }
